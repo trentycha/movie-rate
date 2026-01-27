@@ -21,9 +21,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(mappedBy = "user", orphanRemoval = true)
-//    private List<Film> films = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<Film> films = new ArrayList<>();
+
 //    @OneToMany(mappedBy = "user", orphanRemoval = true)
 //    private List<Role> roles = new ArrayList<>();
 
@@ -44,34 +44,34 @@ public class User {
         return username;
     }
 
-    public String setUsername() {
-        return this.username = username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public String setMail() {
-        return this.mail = mail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String setPassword() {
-        return this.password = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-//    public List<Film> getFilms() {
-//        return films;
-//    }
-//
-//    public List<Film> setFilms() {
-//        return this.films = films;
-//    }
-//
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
+
 //    public List<Role> getRoles() {
 //        return roles;
 //    }
