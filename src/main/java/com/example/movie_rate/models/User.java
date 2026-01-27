@@ -2,6 +2,7 @@ package com.example.movie_rate.models;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,9 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Film> films = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user", orphanRemoval = true)
-//    private List<Role> roles = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    private Roles roles;
 
 
     public User(){}
@@ -72,12 +74,12 @@ public class User {
         this.films = films;
     }
 
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public List<Role> setRoles() {
-//        return this.roles = roles;
-//    }
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 
 }
