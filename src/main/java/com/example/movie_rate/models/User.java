@@ -13,12 +13,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Size(min = 3, max = 50, message = "Le pseudo doit être compris entre 3 et 50 caractères")
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Email(message = "Mail obligatoire")
     @Column(nullable = false, unique = true)
     private String mail;
 
+    @Size(min = 3, message = "Le mot de passe doit contenir plus de 3 caractères")
     @Column(nullable = false)
     private String password;
 
