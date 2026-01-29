@@ -1,6 +1,9 @@
 package com.example.movie_rate.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -6,8 +6,8 @@ public class FilmDTO {
 
     private Integer id;
     private String title;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDate created_at;
+    private LocalDate updated_at;
     private String director;
     private String mainActors;
     private Integer duration;
