@@ -1,13 +1,17 @@
 package Services;
 
+import com.example.movie_rate.models.Country;
 import com.example.movie_rate.models.Film;
 import com.example.movie_rate.models.User;
+import com.example.movie_rate.repositories.CountryRepository;
 import com.example.movie_rate.repositories.FilmRepository;
 import com.example.movie_rate.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +24,9 @@ public class FilmService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CountryRepository countryRepository;
+
     public List<Film> getAllFilms() {
         return filmRepository.findAll();
     }
@@ -28,7 +35,7 @@ public class FilmService {
         return filmRepository.findById(id);
     }
 
-    public Film createFilm(String title, String director, String mainActors, Integer duration, Integer year, String comment, String anecdote, Integer userId) {
+    public Film createFilm(String title, String director, String mainActors, Integer duration, Integer year, String comment, String anecdote, Integer userId, List<Integer> countryIds) {
         if (filmRepository.existsByTitle(title)) {
             throw new RuntimeException("Un film avec ce titre existe déjà");
         }
@@ -48,10 +55,19 @@ public class FilmService {
         film.setCreatedAt(LocalDate.now());
         film.setUpdatedAt(LocalDate.now());
 
+        if (countryIds != null) {
+            Set<Country> countries = new HashSet<>();
+            for (Integer countryId : countryIds) {
+                Country country = countryRepository.findById(countryId).orElseThrow(() -> new RuntimeException("Pays non trouvé"));
+                countries.add(country);
+            }
+            film.setSet_at(countries);
+        }
+
         return filmRepository.save(film);
     }
 
-    public Film updateFilm(Integer id, String title, String director, String mainActors, Integer duration, Integer year, String comment, String anecdote, Integer userId) {
+    public Film updateFilm(Integer id, String title, String director, String mainActors, Integer duration, Integer year, String comment, String anecdote, Integer userId, List<Integer> countryIds) {
         Film film = filmRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Film non trouvé"));
 
@@ -72,6 +88,15 @@ public class FilmService {
         film.setAnecdote(anecdote);
         film.setUpdatedAt(LocalDate.now());
 
+        if (countryIds != null) {
+            Set<Country> countries = new HashSet<>();
+            for (Integer countryId : countryIds) {
+                Country country = countryRepository.findById(countryId).orElseThrow(() -> new RuntimeException("Pays non trouvé"));
+                countries.add(country);
+            }
+            film.setSet_at(countries);
+        }
+
         return filmRepository.save(film);
     }
 
@@ -84,5 +109,12 @@ public class FilmService {
         }
 
         filmRepository.deleteById(id);
+    }
+
+    public List<Film> getFilmsByCountryId(Integer countryId) {
+        Country country = countryRepository.findById(countryId)
+                .orElseThrow(() -> new RuntimeException("Pays non trouvé"));
+
+        return filmRepository.findBySet_at(country);
     }
 }
