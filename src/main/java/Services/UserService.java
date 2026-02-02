@@ -1,7 +1,9 @@
 package Services;
 
+import com.example.movie_rate.models.Film;
 import com.example.movie_rate.models.Roles;
 import com.example.movie_rate.models.User;
+import com.example.movie_rate.repositories.FilmRepository;
 import com.example.movie_rate.repositories.RolesRepository;
 import com.example.movie_rate.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class UserService {
 
     @Autowired
     private RolesRepository rolesRepository;
+
+    @Autowired
+    private FilmRepository filmRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
