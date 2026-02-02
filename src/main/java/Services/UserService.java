@@ -106,4 +106,29 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
+
+    public List<Film> getUserFilms(Integer userId) {
+
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("Utilisateur non trouvé");
+        }
+
+        return filmRepository.findByUserId(userId);
+    }
+
+    public Film getUserFilmById(Integer userId, Integer filmId) {
+
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("Utilisateur non trouvé");
+        }
+
+        Film film = filmRepository.findById(filmId)
+                .orElseThrow(() -> new RuntimeException("Film non trouvé"));
+
+        if (!film.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Ce film n'appartient pas à cet utilisateur");
+        }
+
+        return film;
+    }
 }
