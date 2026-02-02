@@ -2,9 +2,11 @@ package Services;
 
 import com.example.movie_rate.models.Country;
 import com.example.movie_rate.models.Film;
+import com.example.movie_rate.models.Notation;
 import com.example.movie_rate.models.User;
 import com.example.movie_rate.repositories.CountryRepository;
 import com.example.movie_rate.repositories.FilmRepository;
+import com.example.movie_rate.repositories.NotationRepository;
 import com.example.movie_rate.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class FilmService {
 
     @Autowired
     private CountryRepository countryRepository;
+
+    @Autowired
+    private NotationRepository notationRepository;
 
     public List<Film> getAllFilms() {
         return filmRepository.findAll();
@@ -116,5 +121,12 @@ public class FilmService {
                 .orElseThrow(() -> new RuntimeException("Pays non trouvé"));
 
         return filmRepository.findBySet_at(country);
+    }
+
+    public List<Film> getFilmsByNotationId(Integer notationId) {
+        Notation notation = notationRepository.findById(notationId)
+                .orElseThrow(() -> new RuntimeException("Notation non trouvée"));
+
+        return filmRepository.findByNotation(notation);
     }
 }
