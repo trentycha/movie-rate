@@ -35,7 +35,6 @@ public class User {
     @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Roles roles;
 
-
     public User(){}
 
     public User(String username, String mail, String password) {
