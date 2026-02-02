@@ -1,13 +1,7 @@
 package Services;
 
-import com.example.movie_rate.models.Country;
-import com.example.movie_rate.models.Film;
-import com.example.movie_rate.models.Notation;
-import com.example.movie_rate.models.User;
-import com.example.movie_rate.repositories.CountryRepository;
-import com.example.movie_rate.repositories.FilmRepository;
-import com.example.movie_rate.repositories.NotationRepository;
-import com.example.movie_rate.repositories.UserRepository;
+import com.example.movie_rate.models.*;
+import com.example.movie_rate.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +25,9 @@ public class FilmService {
 
     @Autowired
     private NotationRepository notationRepository;
+
+    @Autowired
+    private StreamingRepository streamingHistoryRepository;
 
     public List<Film> getAllFilms() {
         return filmRepository.findAll();
@@ -128,5 +125,12 @@ public class FilmService {
                 .orElseThrow(() -> new RuntimeException("Notation non trouvée"));
 
         return filmRepository.findByNotation(notation);
+    }
+
+    public List<Film> getFilmsByPlatformId(Integer platformId) {
+        Streaming_history platform = streamingHistoryRepository.findById(platformId)
+                .orElseThrow(() -> new RuntimeException("Plateforme non trouvée"));
+
+        return filmRepository.findByPlatforms(platform);
     }
 }
