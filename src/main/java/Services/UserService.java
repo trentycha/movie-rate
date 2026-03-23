@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private static UserRepository userRepository;
 
     @Autowired
     private RolesRepository rolesRepository;
@@ -68,7 +68,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Integer id) {
+    public static Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
 
