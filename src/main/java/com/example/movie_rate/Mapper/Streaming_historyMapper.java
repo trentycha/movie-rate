@@ -1,7 +1,9 @@
 package com.example.movie_rate.Mapper;
 import com.example.movie_rate.DTO.Streaming_historyDTO;
 import com.example.movie_rate.models.Streaming_history;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Streaming_historyMapper {
 
     public Streaming_historyDTO toUserDto (Streaming_history streaming_history) {

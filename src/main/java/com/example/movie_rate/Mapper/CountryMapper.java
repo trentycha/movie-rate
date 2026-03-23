@@ -1,7 +1,9 @@
 package com.example.movie_rate.Mapper;
 import com.example.movie_rate.DTO.CountryDTO;
 import com.example.movie_rate.models.Country;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CountryMapper {
 
     public CountryDTO toUserDto (Country country) {
