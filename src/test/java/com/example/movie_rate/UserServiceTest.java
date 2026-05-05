@@ -43,7 +43,8 @@ class UserServiceTest {
         when(rolesRepository.findByName("ROLE_USER")).thenReturn(Optional.of(role));
         when(userRepository.save(any(User.class))).thenReturn(new User());
 
-        assertDoesNotThrow(() -> userService.register("charlene", "nouveau@test.fr", "password123"));
+        assertDoesNotThrow(() -> userService.register("charlene", "nouveau@test.fr",
+                "password123"));
     }
 
     @Test
