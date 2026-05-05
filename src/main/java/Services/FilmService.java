@@ -37,10 +37,8 @@ public class FilmService {
         return filmRepository.findById(id);
     }
 
-    public Film createFilm(String title, String director, String mainActors, Integer duration, Integer year, String comment, String anecdote, Integer userId, List<Integer> countryIds) {
-        if (filmRepository.existsByTitle(title)) {
-            throw new RuntimeException("Un film avec ce titre existe déjà");
-        }
+    public Film createFilm(String title, String director, String mainActors, Integer duration,
+                           Integer year, String comment, String anecdote, Integer userId, List<Integer> countryIds) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
@@ -77,7 +75,7 @@ public class FilmService {
             throw new RuntimeException("Vous n'êtes pas autorisé à modifier ce film");
         }
 
-        if (!film.getTitle().equals(title) && filmRepository.existsByTitle(title)) {
+        if (!film.getTitle().equals(title)) {
             throw new RuntimeException("Un film avec ce titre existe déjà");
         }
 

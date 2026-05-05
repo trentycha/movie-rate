@@ -19,7 +19,7 @@ import java.util.Set;
 public class UserService {
 
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private RolesRepository rolesRepository;
@@ -54,7 +54,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(String mail, String password) {
+    public String login(String mail, String password) {
         User user = userRepository.findByEmail(mail).orElseThrow(() -> new RuntimeException("Email incorrect"));
 
         if(!passwordEncoder.matches(password, user.getPassword())) {
@@ -68,7 +68,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public static Optional<User> getUserById(Integer id) {
+    public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
 

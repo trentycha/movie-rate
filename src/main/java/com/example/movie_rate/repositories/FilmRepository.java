@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Integer> {
 
-    boolean existsByTitle(String title);
-
     List<Film> findByUserId(Integer userId);
 
     List<Film> findBySet_at(Country country);
@@ -22,3 +20,4 @@ public interface FilmRepository extends JpaRepository<Film, Integer> {
 
     List<Film> findByPlatforms(Streaming_history platform);
 }
+

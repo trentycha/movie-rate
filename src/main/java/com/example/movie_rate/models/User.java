@@ -16,7 +16,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 3, max = 50, message = "Le pseudo doit être compris entre 3 et 50 caractères")
     @Column(nullable = false, unique = true)
     private String username;
 
